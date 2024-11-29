@@ -1,3 +1,5 @@
+// testing
+
 function updateFooter() {
     const footer = document.querySelector("footer");
     
@@ -13,24 +15,6 @@ function updateFooter() {
     const infoItems = document.querySelectorAll(".info-item");
     if (infoItems.length > 3) {
         infoItems[0].remove();
-    }
-}
-
-// 2초마다 정보 갱신 (데모용)
-setInterval(updateFooter, 1000);
-
-let currentMode = "manual"; // 초기 모드는 수동
-
-function toggleMode() {
-    const toggle = document.querySelector(".toggle");
-    if (currentMode === "manual") {
-        currentMode = "conditional";
-        toggle.classList.add("conditional");
-        alert("LED가 조건부 모드로 전환되었습니다.");
-    } else {
-        currentMode = "manual";
-        toggle.classList.remove("conditional");
-        alert("LED가 수동 모드로 전환되었습니다.");
     }
 }
 
@@ -62,3 +46,21 @@ function applyConditions() {
         alert("조건을 입력해주세요.");
     }
 }
+
+let currentMode = "manual"; // 초기 모드는 수동
+
+function toggleMode() {
+    const toggle = document.querySelector(".toggle");
+    if (currentMode === "manual") {
+        currentMode = "conditional";
+        toggle.classList.add("conditional");
+        alert("LED가 조건부 모드로 전환되었습니다.");
+    } else {
+        currentMode = "manual";
+        toggle.classList.remove("conditional");
+        alert("LED가 수동 모드로 전환되었습니다.");
+    }
+}
+
+// 2초마다 정보 갱신 (데모용)
+setInterval(updateFooter, 1000);
