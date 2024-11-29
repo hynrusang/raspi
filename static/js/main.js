@@ -1,7 +1,8 @@
-function refreshImage() {
+const socket = io()
+socket.on("onPhotoReady", () => {
     const img = document.querySelector(".camera-section img")
     img.src = `static/latest.jpg?${new Date().getTime()}`
-}
+})
 
 setInterval(refreshImage, 1000);
 
