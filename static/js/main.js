@@ -1,5 +1,6 @@
 const socket = io()
 socket.on("onPhotoReady", () => {
+    console.log("onPhotoReady 이벤트 수신");
     const img = document.querySelector(".camera-section img")
     img.src = `static/latest.jpg?${new Date().getTime()}`
 })
