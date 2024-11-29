@@ -19,6 +19,11 @@ def cameraRelease():
             socketio.emit("onPhotoReady")
             time.sleep(1)
         """
+        
+@socketio.on('connect')
+def handle_connect():
+    print("클라이언트가 성공적으로 연결되었습니다.")
+
 
 @app.route("/")
 def index():
