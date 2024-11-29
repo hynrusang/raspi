@@ -10,15 +10,11 @@ socketio = SocketIO(app)
 
 def cameraRelease():
     while True:
-        socketio.emit("onPhotoReady")
-        socketio.sleep(1)
-        """
         ret, frame = camera.read()
         if ret: 
             cv2.imwrite("static/latest.jpg", frame)
             socketio.emit("onPhotoReady")
-            time.sleep(1)
-        """
+            socketio.sleep(1)
 
 @socketio.on('connect')
 def handle_connect():
