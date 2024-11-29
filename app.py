@@ -5,17 +5,20 @@ import threading
 import time
 
 app = Flask(__name__)
+camera = cv2.VideoCapture(0)
 socketio = SocketIO(app)
 
 def cameraRelease():
     while True:
-        camera = cv2.VideoCapture(0)
+        socketio.emit("onPhotoReady")
+        time.sleep(1)
+        """
         ret, frame = camera.read()
         if ret: 
             cv2.imwrite("static/latest.jpg", frame)
-            camera.release()
             socketio.emit("onPhotoReady")
             time.sleep(1)
+        """
 
 @app.route("/")
 def index():
