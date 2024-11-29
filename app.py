@@ -11,8 +11,7 @@ socketio = SocketIO(app)
 def cameraRelease():
     while True:
         socketio.emit("onPhotoReady")
-        print("onPhotoReady 이벤트 전송")
-        time.sleep(1)
+        socketio.sleep(1)
         """
         ret, frame = camera.read()
         if ret: 
