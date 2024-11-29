@@ -9,10 +9,10 @@ camera = cv2.VideoCapture(0)
 socketio = SocketIO(app)
 
 def cameraRelease():
-    socketio.emit("onPhotoReady")
-    socketio.sleep(1)
-    """
     while True:
+        socketio.emit("onPhotoReady")
+        socketio.sleep(1)
+    """
         ret, frame = camera.read()
         if ret: 
             cv2.imwrite("static/latest.jpg", frame)
