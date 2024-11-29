@@ -1,4 +1,6 @@
-const socket = io()
+const socket = io({
+    transports: ['websocket']
+});
 console.log("WebSocket 연결 시도");
 
 socket.on("connect", () => {
