@@ -11,6 +11,7 @@ socketio = SocketIO(app)
 def cameraRelease():
     while True:
         socketio.emit("onPhotoReady")
+        print("onPhotoReady 이벤트 전송")
         time.sleep(1)
         """
         ret, frame = camera.read()
@@ -19,7 +20,7 @@ def cameraRelease():
             socketio.emit("onPhotoReady")
             time.sleep(1)
         """
-        
+
 @socketio.on('connect')
 def handle_connect():
     print("클라이언트가 성공적으로 연결되었습니다.")
