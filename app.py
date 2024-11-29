@@ -7,7 +7,7 @@ camera = cv2.VideoCapture(0)
 def cameraRelease():
     ret, frame = camera.read()
     if ret: cv2.imwrite("static/latest.jpg", frame)
-    cap.release()
+    camera.release()
 
 @app.route("/")
 def index():
