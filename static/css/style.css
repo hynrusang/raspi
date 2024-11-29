@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 페이지 전체 높이를 고정 */
+    background-color: #f4f4f4;
+}
+.main-container {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden; /* 자식 요소가 부모를 넘지 않게 설정 */
+}
+.camera-section {
+    flex: 1;
+    background-color: #dfe6e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b2bec3;
+    border-radius: 8px;
+    height: 100%; /* 부모 높이에 맞게 설정 */
+}
+.camera-section p {
+    font-size: 18px;
+    color: #636e72;
+}
+.settings-section {
+    width: 300px;
+    background-color: #ffffff;
+    border: 1px solid #b2bec3;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto; /* 내부 스크롤 활성화 */
+    height: 100%; /* 부모 높이에 맞게 설정 */
+}
+.settings-section h2 {
+    font-size: 20px;
+    color: #2d3436;
+}
+.control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #b2bec3;
+    border-radius: 8px;
+    padding: 10px;
+}
+.control-section label {
+    font-size: 14px;
+    color: #2d3436;
+}
+.control-section input[type="number"],
+.control-section select,
+.control-section button {
+    width: 100%;
+    box-sizing: border-box; /* 부모 크기에 맞게 조정 */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #b2bec3;
+    border-radius: 5px;
+}
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.toggle-label {
+    font-size: 14px;
+    color: #2d3436;
+}
+.toggle {
+    position: relative;
+    width: 120px;
+    height: 30px;
+    background-color: #ced6e0;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.toggle-ball {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease, background-color 0.3s ease;
+}
+.toggle.conditional .toggle-ball {
+    left: 93px;
+    background-color: #1e90ff;
+}
+footer {
+    background-color: #ffffff;
+    border-top: 1px solid #b2bec3;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+.info-item {
+    font-size: 14px;
+    color: #2d3436;
+    padding: 5px;
+    border-radius: 5px;
+    transition: 0.4s opacity;
+}
+.info-item:nth-last-child(3) { opacity: 0.2; }
+.info-item:nth-last-child(2) { opacity: 0.6; }
+.info-item:nth-last-child(1) { background-color: #2f3542; border: 2px solid #1e272e; color: #ffffff; font-weight: bold; }

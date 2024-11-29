@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LED 조건 설정</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="camera-section">
+            <p>실시간 카메라 피드</p>
+        </div>
+        <div class="settings-section">
+            <h2>LED 조건 설정</h2>
+            <div class="toggle-switch">
+                <span class="toggle-label">수동</span>
+                <div class="toggle" onclick="toggleMode()">
+                    <div class="toggle-ball"></div>
+                </div>
+                <span class="toggle-label">조건부</span>
+            </div>
+
+            <div class="control-section">
+                <label>수동 LED 제어</label>
+                <button onclick="toggleLed()">LED 켜기 / 끄기</button>
+            </div>
+            
+            <div class="control-section">
+                <label>조도</label>
+                <input type="number" placeholder="예: 50">
+                <select>
+                    <option value="이상">이상</option>
+                    <option value="이하">이하</option>
+                </select>
+                <label>온도</label>
+                <input type="number" placeholder="예: 30">
+                <select>
+                    <option value="이상">이상</option>
+                    <option value="이하">이하</option>
+                </select>
+                <label>습도</label>
+                <input type="number" placeholder="예: 60">
+                <select>
+                    <option value="이상">이상</option>
+                    <option value="이하">이하</option>
+                </select>
+                <label>거리</label>
+                <input type="number" placeholder="예: 100">
+                <select>
+                    <option value="이상">이상</option>
+                    <option value="이하">이하</option>
+                </select>
+                <button>조건 적용</button>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
+    <script src="static/js/main.js"></script>
+</body>
+</html>
