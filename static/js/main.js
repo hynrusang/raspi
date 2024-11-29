@@ -1,4 +1,9 @@
 const socket = io()
+console.log("WebSocket 연결 시도");
+
+socket.on("connect", () => {
+    console.log("WebSocket 연결 성공");
+});
 socket.on("onPhotoReady", () => {
     console.log("onPhotoReady 이벤트 수신");
     const img = document.querySelector(".camera-section img")
