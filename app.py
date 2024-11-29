@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 import cv2
 import threading
+import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -13,6 +14,7 @@ def cameraRelease():
         if ret: 
             cv2.imwrite("static/latest.jpg", frame)
             socketio.emit("onPhotoReady")
+            time.sleep(1)
 
 @app.route("/")
 def index():
@@ -20,4 +22,4 @@ def index():
 
 if __name__ == "__main__":
     threading.Thread(target=cameraRelease, daemon=True).start()
-    app.run(host='0.0.0.0', port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000)

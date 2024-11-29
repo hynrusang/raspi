@@ -4,8 +4,6 @@ socket.on("onPhotoReady", () => {
     img.src = `static/latest.jpg?${new Date().getTime()}`
 })
 
-setInterval(refreshImage, 1000);
-
 // testing
 
 function updateFooter() {
