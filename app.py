@@ -23,6 +23,7 @@ def cameraRelease():
 
 @socketio.on('connect')
 def handle_connect():
+    socketio.start_background_task(cameraRelease)
     print("클라이언트가 성공적으로 연결되었습니다.")
 
 
@@ -31,5 +32,4 @@ def index():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    socketio.start_background_task(cameraRelease)
     socketio.run(app, host='0.0.0.0', port=5000, debug=True, log_output=True)
