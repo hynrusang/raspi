@@ -1,17 +1,17 @@
 const socket = io({
     transports: ['websocket']
 });
-console.log("WebSocket 연결 시도");
+const img = document.querySelector(".camera-section img");
+img.onload = () => socket.emit("requestPhoto");
 
+console.log("WebSocket 연결 시도");
 socket.on("connect", () => {
     console.log("WebSocket 연결 성공");
     socket.emit("requestPhoto");
 });
 socket.on("responsePhoto", () => {
     console.log("사진을 받음.");
-    const img = document.querySelector(".camera-section img");
     img.src = `static/latest.jpg?${new Date().getTime()}`;
-    socket.emit("requestPhoto");
 })
 
 // testing
