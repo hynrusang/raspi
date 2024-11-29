@@ -1,6 +1,13 @@
 from flask import Flask, render_template
+import cv2
 
 app = Flask(__name__)
+camera = cv2.VideoCapture(0)
+
+def cameraRelease():
+    ret, frame = camera.read()
+    if ret: cv2.imwrite("static/latest.jpg", frame)
+    cap.release()
 
 @app.route("/")
 def index():
