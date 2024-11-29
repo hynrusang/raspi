@@ -20,4 +20,8 @@ def index():
     return render_template("index.html")
 
 if __name__ == "__main__":
-    socketio.run(app, host='0.0.0.0', port=5000, log_output=True)
+    try:
+        socketio.run(app, host='0.0.0.0', port=5000, log_output=True)
+    finally:
+        camera.release()
+        print("카메라 초기화 완료.")
