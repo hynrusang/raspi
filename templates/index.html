@@ -26,26 +26,26 @@
                 <button>LED 켜기 / 끄기</button>
             </div>
             
-            <div class="control-section">
+            <div id="led_condition" class="control-section">
                 <label>조도</label>
-                <input type="number" placeholder="예: 50">
+                <input type="number" min="0" max="4096" step="1" placeholder="범위: 0 ~ 4096">
                 <select>
                     <option value="이상">이상</option>
                     <option value="이하">이하</option>
                 </select>
                 <label>온도</label>
-                <input type="number" placeholder="예: 30">
+                <input type="number" min="-273.1" step="0.1" placeholder="단위: °C">
                 <select>
                     <option value="이상">이상</option>
                     <option value="이하">이하</option>
                 </select>
                 <label>습도</label>
-                <input type="number" placeholder="예: 60">
+                <input type="number" min="0" max="100" step="1" placeholder="단위: %">
                 <select>
                     <option value="이상">이상</option>
                     <option value="이하">이하</option>
                 </select>
-                <button>조건 적용</button>
+                <button onclick="applyCondition()">조건 적용</button>
             </div>
         </div>
     </div>
