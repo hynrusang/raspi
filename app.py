@@ -20,6 +20,16 @@ if not camera.isOpened():
     print("카메라를 열 수 없습니다.")
     exit()
 
+def sendInfo():
+    while True:
+        socketio.emit("onInfo", {message: "메시지를 전송했습니다."})
+        socketio.sleep(0.25)
+
+@socketio.on("connect")
+def initSocket():
+    socketio.emit("onInit", {ledMode: ledMode})
+    socketio.start_background_task(sendInfo)
+
 @socketio.on('ePhotoRequest')
 def requestPhoto():
     ret, frame = camera.read()
