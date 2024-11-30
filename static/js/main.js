@@ -28,7 +28,7 @@ socket.on("onInfo", data => {
 
 function toggleMode() {
     if (ledMode === "수동") {
-        ledMode = "조건부";
+        ledMode = "조건";
         toggle.classList.add("conditional");
         socket.emit("eLedModeToggle", {state: ledMode})
     } else {

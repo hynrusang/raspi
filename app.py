@@ -40,13 +40,13 @@ def toggleLed():
     else:
         GPIO.output(ledPin, GPIO.LOW)  # LED 끄기
         ledState = "off"
-    socketio.emit("onInfo", {"message": f"LED 상태를 {ledState}로 변경했습니다."})
+    socketio.emit("onInfo", {"message": f"LED 상태를 {ledState}(으)로 변경했습니다."})
 
 @socketio.on('eLedModeToggle')
 def ledModeToggle(data):
     global ledMode
     ledMode = data.get("state")
-    socketio.emit("onInfo", {"message": f"LED 모드를 {ledMode}로 변경했습니다."})
+    socketio.emit("onInfo", {"message": f"LED 모드를 {ledMode}으로 변경했습니다."})
 
 @app.route("/")
 def index():
