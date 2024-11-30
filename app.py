@@ -36,10 +36,10 @@ def syncLedState():
 
 def sendInfo():
     while True:
-        data.temp = round(float(sensor.temperature), 1)
-        data.humi = round(float(sensor.relative_humidity), 1)
-        data.light = float(mcp.read_adc(0) / 10)
-        socketio.emit("onInfo", {"message": f"조도: {data.light}, 온도: {data.temp}, 습도: {data.humi}"})
+        data["temp"] = round(float(sensor.temperature), 1)
+        data["humi"] = round(float(sensor.relative_humidity), 1)
+        data["light"] = float(mcp.read_adc(0) / 10)
+        socketio.emit("onInfo", {"message": f"온도: {data['temp']}, 습도: {data['humi']}, 조도: {data['light']}"})
         socketio.sleep(1)
 
 @socketio.on("connect")
