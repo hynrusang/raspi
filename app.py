@@ -26,7 +26,7 @@ if not camera.isOpened():
 def measure(target, dataSource):
     if (target == "temp"):
         return round(float(dataSource.temperature), 1)
-    else if (target == "humi"):
+    elif (target == "humi"):
         return round(float(dataSource.relative_humidity), 1)
 
 def sendInfo():
