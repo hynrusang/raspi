@@ -13,7 +13,6 @@ socket.on("connect", () => {
     img.onload = () => socket.emit("ePhotoRequest")
     ledToggleBtn.onclick = () => socket.emit("eLedToggle")
 });
-socket.on("onInit", data => ledMode = data.ledMode)
 socket.on("ePhotoReady", () => img.src = `static/latest.jpg?${new Date().getTime()}`)
 socket.on("onInfo", data => {
     const newInfo = document.createElement("div");
