@@ -10,7 +10,7 @@ socketio = SocketIO(app)
 camera = cv2.VideoCapture(0)
 
 ledPin = 6
-GPIO.setMode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(ledPin, GPIO.OUT)
 
 ledState = "off"
@@ -31,7 +31,7 @@ def toggleLed(data):
     if (data.get("state") != "menual"):
         socketio.emit("onInfo", {"message": f"LED 모드를 수동으로 변경해주세요."})
         return
-        
+
     global ledState
     if ledState == "off":
         GPIO.output(ledPin, 1)  # LED 켜기
