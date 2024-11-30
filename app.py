@@ -31,7 +31,7 @@ def measure(target, dataSource):
 
 def sendInfo():
     while True:
-        socketio.emit("onInfo", {"message": f"온도: {measure("temp", sensor)}, 습도: {measure("humi", sensor)}"})
+        socketio.emit("onInfo", {"message": f"온도: {measure('temp', sensor)}, 습도: {measure('humi', sensor)}"})
         socketio.sleep(1)
 
 @socketio.on("connect")
