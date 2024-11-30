@@ -1,11 +1,12 @@
 const socket = io({
     transports: ['websocket']
 });
-const ledMode = "menual"
 const img = document.querySelector(".camera-section img")
 const ledToggleBtn = document.querySelector(".control-section button")
 const footer = document.querySelector("footer");
 const toggle = document.querySelector(".toggle");
+
+let ledMode = "수동"
 
 socket.on("connect", () => {
     socket.emit("ePhotoRequest")
@@ -13,10 +14,7 @@ socket.on("connect", () => {
     img.onload = () => socket.emit("ePhotoRequest")
     ledToggleBtn.onclick = () => socket.emit("eLedToggle")
 });
-socket.on("ePhotoReady", () => {
-    console.log("사진을 받음.");
-    img.src = `static/latest.jpg?${new Date().getTime()}`;
-})
+socket.on("ePhotoReady", () => img.src = `static/latest.jpg?${new Date().getTime()}`)
 socket.on("onInfo", data => {
     const newInfo = document.createElement("div");
     newInfo.classList.add("info-item");
@@ -29,12 +27,12 @@ socket.on("onInfo", data => {
 })
 
 function toggleMode() {
-    if (ledMode === "manual") {
-        ledMode = "conditional";
+    if (ledMode === "수동") {
+        ledMode = "조건부";
         toggle.classList.add("conditional");
         socket.emit("eLedModeToggle", {state: ledMode})
     } else {
-        ledMode = "manual";
+        ledMode = "수동";
         toggle.classList.remove("conditional");
         socket.emit("eLedModeToggle", {state: ledMode})
     }
