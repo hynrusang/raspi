@@ -34,10 +34,10 @@ def toggleLed(data):
 
     global ledState
     if ledState == "off":
-        GPIO.output(ledPin, 1)  # LED 켜기
+        GPIO.output(ledPin, GPIO.HIGH)  # LED 켜기
         ledState = "on"
     else:
-        GPIO.output(ledPin, 0)  # LED 끄기
+        GPIO.output(ledPin, GPIO.LOW)  # LED 끄기
         ledState = "off"
     socketio.emit("onInfo", {"message": f"LED 상태를 {ledState}로 변경했습니다."})
 
