@@ -1,19 +1,45 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
+import RPi.GPIO as GPIO
 import cv2
 import threading
 import time
 
 app = Flask(__name__)
-camera = cv2.VideoCapture(0)
 socketio = SocketIO(app)
+camera = cv2.VideoCapture(0)
 
-@socketio.on('requestPhoto')  # 클라이언트로부터 사진 촬영 요청 처리
-def photoPublish():
-    ret, frame = camera.read()  # 카메라에서 프레임 읽기
+ledPin = 6
+GPIO.setMode(GPIO.BCM)
+GPIO.setup(ledPin, GPIO.OUT)
+
+ledState = "off"
+
+if not camera.isOpened():
+    print("카메라를 열 수 없습니다.")
+    exit()
+
+@socketio.on('ePhotoRequest')
+def requestPhoto():
+    ret, frame = camera.read()
     if ret:
-        cv2.imwrite("static/latest.jpg", frame)  # 저장
-        socketio.emit("responsePhoto")  # 사진 촬영 완료 알림 이벤트 전송
+        cv2.imwrite("static/latest.jpg", frame)
+        socketio.emit("ePhotoReady")
+
+@socketio.on('eLedToggle')
+def toggleLed(data):
+    if (data.get("state") != "menual"):
+        socketio.emit("onInfo", {"message": f"LED 모드를 수동으로 변경해주세요."})
+        return
+        
+    global ledState
+    if ledState == "off":
+        GPIO.output(ledPin, 1)  # LED 켜기
+        ledState = "on"
+    else:
+        GPIO.output(ledPin, 0)  # LED 끄기
+        ledState = "off"
+    socketio.emit("onInfo", {"message": f"LED 상태를 {ledState}로 변경했습니다."})
 
 @app.route("/")
 def index():
@@ -23,5 +49,6 @@ if __name__ == "__main__":
     try:
         socketio.run(app, host='0.0.0.0', port=5000, log_output=True)
     finally:
+        GPIO.cleanup()
         camera.release()
-        print("카메라 초기화 완료.")
+        print("카메라 및 핀 초기화 완료.")
