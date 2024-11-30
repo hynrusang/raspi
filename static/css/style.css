@@ -66,6 +66,7 @@ body {
     font-size: 14px;
     border: 1px solid #b2bec3;
     border-radius: 5px;
+    cursor: pointer;
 }
 .toggle-switch {
     display: flex;

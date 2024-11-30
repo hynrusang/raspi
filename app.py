@@ -59,7 +59,7 @@ def sendInfo():
         data["humi"] = round(float(sensor.relative_humidity), 1)
         data["light"] = float(mcp.read_adc(0) / 10)
 
-        if data["led"]["mode"] == "조건":
+        if data["led"]["mode"] == "자동":
             is_condition_met = evaluateCondition(data["led"]["condition"])
             GPIO.output(ledPin, GPIO.HIGH if is_condition_met else GPIO.LOW)
             data["led"]["state"] = "on" if is_condition_met else "off"
@@ -95,7 +95,7 @@ def toggleLed():
 @socketio.on('eToggleLedMode')
 def toggleLedMode(mode):
     data["led"]["mode"] = mode
-    socketio.emit("eInfo", f"LED 모드가 {data['led']['mode']}로 설정되었습니다.")
+    socketio.emit("eInfo", f"LED 모드가 {data['led']['mode']}으 설정되었습니다.")
 
 # 소켓 이벤트: 조건 설정
 @socketio.on("eApplyLedCondition")
