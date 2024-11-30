@@ -17,8 +17,8 @@ ledPin = 6
 ledMode = "수동"
 ledState = "off"
 data = {
-    "temp": 0
-    "humi": 0
+    "temp": 0,
+    "humi": 0,
     "light": 0
 }
 
