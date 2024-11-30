@@ -9,7 +9,7 @@
 <body>
     <div class="main-container">
         <div class="camera-section">
-            <img onload='() => socket.emit("ePhotoRequest")'>
+            <img>
         </div>
         <div class="settings-section">
             <h2>LED 조건 설정</h2>
@@ -23,7 +23,7 @@
 
             <div class="control-section">
                 <label>수동 LED 제어</label>
-                <button onclick='() => socket.emit("eLedToggle", {state: ledMode})'>LED 켜기 / 끄기</button>
+                <button>LED 켜기 / 끄기</button>
             </div>
             
             <div class="control-section">

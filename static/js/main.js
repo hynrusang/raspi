@@ -3,9 +3,14 @@ const socket = io({
 });
 const ledMode = "menual"
 const img = document.querySelector(".camera-section img")
+const ledToggleBtn = document.querySelector(".control-section button")
 const footer = document.querySelector("footer");
 
-socket.on("connect", () => socket.emit("ePhotoRequest"));
+socket.on("connect", () => {
+    socket.emit("ePhotoRequest")
+    img.onload = () => socket.emit("ePhotoRequest")
+    ledToggleBtn.onclick = () => socket.emit("eLedToggle", {state: ledMode})
+});
 socket.on("ePhotoReady", () => {
     console.log("사진을 받음.");
     img.src = `static/latest.jpg?${new Date().getTime()}`;
