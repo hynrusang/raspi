@@ -13,7 +13,6 @@ socket.on("connect", () => {
     img.onload = () => socket.emit("ePhotoRequest")
     ledToggleBtn.onclick = () => socket.emit("eLedToggle")
 });
-socket.on("ePhotoReady", () => img.src = `static/latest.jpg?${new Date().getTime()}`)
 socket.on("onInfo", data => {
     const newInfo = document.createElement("div");
     newInfo.classList.add("info-item");
@@ -24,6 +23,7 @@ socket.on("onInfo", data => {
     const infoItems = document.querySelectorAll(".info-item");
     if (infoItems.length > 3) infoItems[0].remove();
 })
+socket.on("ePhotoReady", () => img.src = `static/latest.jpg?${new Date().getTime()}`)
 
 function toggleMode() {
     if (ledMode === "수동") {

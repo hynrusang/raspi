@@ -1,9 +1,11 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
+from adafruit_htu21d import HTU21D
 import RPi.GPIO as GPIO
-import cv2
 import threading
+import busio
 import time
+import cv2
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -12,6 +14,7 @@ camera = cv2.VideoCapture(0)
 ledPin = 6
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(ledPin, GPIO.OUT)
+sensor = HTU21D(busio.I2C(3, 2))
 
 ledMode = "수동"
 ledState = "off"
@@ -20,9 +23,15 @@ if not camera.isOpened():
     print("카메라를 열 수 없습니다.")
     exit()
 
+def measure(target, dataSource):
+    if (target == "temp"):
+        return round(float(dataSource.temperature), 1)
+    else if (target == "humi"):
+        return round(float(dataSource.relative_humidity), 1)
+
 def sendInfo():
     while True:
-        socketio.emit("onInfo", {"message": "메시지를 전송했습니다."})
+        socketio.emit("onInfo", {"message": f"온도: {measure("temp", sensor)}, 습도: {measure("humi", sensor)}"})
         socketio.sleep(1)
 
 @socketio.on("connect")
