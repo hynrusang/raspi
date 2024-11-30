@@ -40,7 +40,7 @@ function toggleMode() {
 function applyCondition() {
     const values = document.querySelectorAll("#led_condition input");
     const options = document.querySelectorAll("#led_condition select");
-    socket.emit("eLedApplyCondition", {
+    socket.emit("eApplyLedCondition", {
         light: {
             value: values[0].value,
             condition: options[0].value

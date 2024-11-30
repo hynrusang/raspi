@@ -98,7 +98,7 @@ def toggleLedMode(mode):
     socketio.emit("eInfo", f"LED 모드가 {data['led']['mode']}로 설정되었습니다.")
 
 # 소켓 이벤트: 조건 설정
-@socketio.on("eLedApplyCondition")
+@socketio.on("eApplyLedCondition")
 def applyLedCondition(conditions):
     for key in ["temp", "humi", "light"]:
         if key in conditions:
