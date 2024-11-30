@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
 from adafruit_htu21d import HTU21D
+import Adafruit_MCP3008
 import RPi.GPIO as GPIO
 import threading
 import busio
@@ -15,6 +16,7 @@ ledPin = 6
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(ledPin, GPIO.OUT)
 sensor = HTU21D(busio.I2C(3, 2))
+mcp = Adafruit_MCP3008.MCP3008(clk=11, cs=8, miso=9, mosi=10)
 
 ledMode = "수동"
 ledState = "off"
@@ -31,7 +33,7 @@ def measure(target, dataSource):
 
 def sendInfo():
     while True:
-        socketio.emit("onInfo", {"message": f"온도: {measure('temp', sensor)}, 습도: {measure('humi', sensor)}"})
+        socketio.emit("onInfo", {"message": f"조도: {mcp.read_adc(0)}, 온도: {measure('temp', sensor)}, 습도: {measure('humi', sensor)}"})
         socketio.sleep(1)
 
 @socketio.on("connect")
