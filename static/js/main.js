@@ -5,14 +5,11 @@ const img = document.querySelector(".camera-section img")
 const footer = document.querySelector("footer");
 const toggle = document.querySelector(".toggle");
 
-const ledToggleBtn = document.querySelector(".control-section button")
-
 let ledMode = "수동"
 
 socket.on("connect", () => {
     socket.emit("eRequestPhoto")
     img.onload = () => socket.emit("eRequestPhoto")
-    ledToggleBtn.onclick = () => socket.emit("eToggleLed")
 });
 socket.on("eInfo", text => {
     const newInfo = document.createElement("div");
@@ -54,4 +51,19 @@ function applyCondition() {
             condition: options[2].value
         }
     });
+}
+
+function saveImg() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const timestamp = `${year}-${month}-${day}_${hours}-${minutes}`;
+
+    const link = document.createElement("a");
+    link.href = img.src;
+    link.download = `image_${timestamp}.jpg`;
+    link.click();
 }
