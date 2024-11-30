@@ -46,11 +46,12 @@ def evaluateCondition(conditions):
         standard = details["standard"]
         option = details["condition"]
         
-        if value is not None and standard is not None and option is not None:
-            if option == "이상" and value < standard:
-                return False
-            elif option == "이하" and value > standard:
-                return False
+        if value is None or standard is None or option is None:
+            continue
+        if option == "이상" and value < standard:
+            return False
+        elif option == "이하" and value > standard:
+            return False
     return True
 
 def sendInfo():
@@ -95,7 +96,7 @@ def toggleLed():
 @socketio.on('eToggleLedMode')
 def toggleLedMode(mode):
     data["led"]["mode"] = mode
-    socketio.emit("eInfo", f"LED 모드가 {data['led']['mode']}으 설정되었습니다.")
+    socketio.emit("eInfo", f"LED 모드가 {data['led']['mode']}으로 설정되었습니다.")
 
 # 소켓 이벤트: 조건 설정
 @socketio.on("eApplyLedCondition")
