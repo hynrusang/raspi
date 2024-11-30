@@ -13,6 +13,7 @@ ledPin = 6
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(ledPin, GPIO.OUT)
 
+ledMode = "manual"
 ledState = "off"
 
 if not camera.isOpened():
@@ -27,8 +28,8 @@ def requestPhoto():
         socketio.emit("ePhotoReady")
 
 @socketio.on('eLedToggle')
-def toggleLed(data):
-    if (data.get("state") != "menual"):
+def toggleLed():
+    if (ledMode != "menual"):
         socketio.emit("onInfo", {"message": f"LED 모드를 수동으로 변경해주세요."})
         return
 
@@ -40,6 +41,10 @@ def toggleLed(data):
         GPIO.output(ledPin, GPIO.LOW)  # LED 끄기
         ledState = "off"
     socketio.emit("onInfo", {"message": f"LED 상태를 {ledState}로 변경했습니다."})
+
+@socketio.on('eLedModeToggle')
+def ledModeToggle(data):
+    ledMode = data.get("state")
 
 @app.route("/")
 def index():

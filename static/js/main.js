@@ -5,11 +5,13 @@ const ledMode = "menual"
 const img = document.querySelector(".camera-section img")
 const ledToggleBtn = document.querySelector(".control-section button")
 const footer = document.querySelector("footer");
+const toggle = document.querySelector(".toggle");
 
 socket.on("connect", () => {
     socket.emit("ePhotoRequest")
+    socket.emit("eLedModeToggle", {state: ledMode})
     img.onload = () => socket.emit("ePhotoRequest")
-    ledToggleBtn.onclick = () => socket.emit("eLedToggle", {state: ledMode})
+    ledToggleBtn.onclick = () => socket.emit("eLedToggle")
 });
 socket.on("ePhotoReady", () => {
     console.log("사진을 받음.");
@@ -26,22 +28,14 @@ socket.on("onInfo", data => {
     if (infoItems.length > 3) infoItems[0].remove();
 })
 
-function updateFooter() {
-}
-
-function applyConditions() {
-
-}
-
 function toggleMode() {
-    const toggle = document.querySelector(".toggle");
-    if (currentMode === "manual") {
-        currentMode = "conditional";
+    if (ledMode === "manual") {
+        ledMode = "conditional";
         toggle.classList.add("conditional");
-        alert("LED가 조건부 모드로 전환되었습니다.");
+        socket.emit("eLedModeToggle", {state: ledMode})
     } else {
-        currentMode = "manual";
+        ledMode = "manual";
         toggle.classList.remove("conditional");
-        alert("LED가 수동 모드로 전환되었습니다.");
+        socket.emit("eLedModeToggle", {state: ledMode})
     }
 }
