@@ -58,7 +58,7 @@ def sendInfo():
     while True:
         data["temp"] = round(float(sensor.temperature), 1)
         data["humi"] = round(float(sensor.relative_humidity), 1)
-        data["light"] = float(mcp.read_adc(0) / 10)
+        data["light"] = float(mcp.read_adc(0))
 
         if data["led"]["mode"] == "자동":
             is_condition_met = evaluateCondition(data["led"]["condition"])
