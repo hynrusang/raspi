@@ -23,7 +23,7 @@
 
             <div class="control-section">
                 <label>수동 LED 제어</label>
-                <button onclick="() => socket.emit('eToggleLed')">LED 켜기 / 끄기</button>
+                <button onclick="socket.emit('eToggleLed')">LED 켜기 / 끄기</button>
             </div>
             
             <div id="led_condition" class="control-section">
