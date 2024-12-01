@@ -10,9 +10,9 @@ import time
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-# 초기 설정
 camera = cv2.VideoCapture(0)
 ledPin = 6
+isConnect = 0
 
 # 데이터 구조
 data = {
@@ -56,6 +56,8 @@ def evaluateCondition(conditions):
 
 def sendInfo():
     while True:
+        if (isConnect == 0): return
+        
         data["temp"] = round(float(sensor.temperature), 1)
         data["humi"] = round(float(sensor.relative_humidity), 1)
         data["light"] = float(mcp.read_adc(0))
@@ -68,10 +70,16 @@ def sendInfo():
         socketio.emit("eInfo", f"온도: {data['temp']}°C, 습도: {data['humi']}%, 조도: {data['light']}")
         socketio.sleep(1)
 
-# 소켓 이벤트: 클라이언트 연결
 @socketio.on("connect")
 def onConnect():
+    global isConnect
+    isConnect = 1
     socketio.start_background_task(sendInfo)
+
+@socketio.on("disconnect")
+def onDisconnect():
+    global isConnect
+    isConnect = 0
 
 # 소켓 이벤트: 사진 요청
 @socketio.on('eRequestPhoto')
