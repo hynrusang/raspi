@@ -111,7 +111,7 @@ def toggleLedMode(mode):
 def applyLedCondition(conditions):
     for key in ["temp", "humi", "light"]:
         if key in conditions:
-            data["led"]["condition"][key]["standard"] = float(conditions[key]["value"])
+            data["led"]["condition"][key]["standard"] = float(conditions[key]["value"]) if (conditions[key]["value"] != "") else None 
             data["led"]["condition"][key]["condition"] = conditions[key]["condition"]
     socketio.emit("eInfo", "조건이 성공적으로 설정되었습니다.")
 
