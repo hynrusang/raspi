@@ -5,7 +5,6 @@ import Adafruit_MCP3008
 import RPi.GPIO as GPIO
 import busio
 import cv2
-import time
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -40,6 +39,7 @@ if not camera.isOpened():
     print("카메라를 열 수 없습니다.")
     exit()
 
+# 자동 LED 제어 함수
 def evaluateCondition(conditions):
     for key, details in conditions.items():
         value = data.get(key)
@@ -54,6 +54,7 @@ def evaluateCondition(conditions):
             return False
     return True
 
+# 특정 시간마다 정보를 클라이언트에게 전송
 def sendInfo():
     while True:
         if (isConnect == 0): return

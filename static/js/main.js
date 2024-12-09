@@ -1,16 +1,23 @@
+// 소켓 연결
 const socket = io({
     transports: ['websocket']
 });
+
+// 이벤트를 링크할 Dom 타겟팅
 const img = document.querySelector(".camera-section img")
 const footer = document.querySelector("footer");
 const toggle = document.querySelector(".toggle");
 
 let ledMode = "수동"
 
+// 소켓 연결 시, 서버측과의 사진 통신
 socket.on("connect", () => {
     socket.emit("eRequestPhoto")
     img.onload = () => socket.emit("eRequestPhoto")
 });
+socket.on("eResponsePhoto", () => img.src = `static/latest.jpg?${new Date().getTime()}`)
+
+// 서버로부터 받은 정보 출력
 socket.on("eInfo", text => {
     const newInfo = document.createElement("div");
     newInfo.classList.add("info-item");
@@ -21,8 +28,8 @@ socket.on("eInfo", text => {
     const infoItems = document.querySelectorAll(".info-item");
     if (infoItems.length > 3) infoItems[0].remove();
 })
-socket.on("eResponsePhoto", () => img.src = `static/latest.jpg?${new Date().getTime()}`)
 
+// LED 관련 모듈 토글
 function toggleMode() {
     if (ledMode === "수동") {
         ledMode = "자동";
@@ -34,6 +41,7 @@ function toggleMode() {
     socket.emit("eToggleLedMode", ledMode)
 }
 
+// 자동 조작 설정 전송
 function applyCondition() {
     const values = document.querySelectorAll("#led_condition input");
     const options = document.querySelectorAll("#led_condition select");
@@ -53,6 +61,7 @@ function applyCondition() {
     });
 }
 
+// 사진을 클라이언트에 저장하는 함수
 function saveImg() {
     const now = new Date();
     const year = now.getFullYear();
